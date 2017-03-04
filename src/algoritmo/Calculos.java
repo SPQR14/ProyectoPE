@@ -1,4 +1,13 @@
+
 package algoritmo;
+
+import modelo.Entrada;
+
+/**
+ * 
+ * @author Alberto I. Pico Lara
+ */
+
 public class Calculos extends Thread{
     
     private double [][] matrizP;
@@ -6,6 +15,7 @@ public class Calculos extends Thread{
     private double [] vectorResultante;
     private double [] vector;
     private int n;
+    Entrada mostrar = new Entrada();
     
     /**
      * 
@@ -15,19 +25,23 @@ public class Calculos extends Thread{
      */
     
     public Calculos(int n, double [] vector, double [][] matriz ){
-        this.vector=vector;
-        this.matrizP=matriz;
+        this.vector = vector;
+        this.matrizP = matriz;
         this.matrizR = matriz;
         this.vectorResultante = new double[vector.length];
         this.n=n;
-        
     }
     
     private void elevarMatriz(){
-        int i = 0;
-        while(i < n){
-            
-            i++;
+        int x = 1;
+        while(x <= n){
+            for(int i = 0; i < matrizP.length; i++){
+                for(int j = 0; j < matrizP[i].length;j++){
+                    matrizP[i][j] += matrizR[i][j] * matrizR[j][i];
+                }
+            }
+            mostrar.mostrarMatrizP(matrizP);
+            x++;
         }
     }
     
@@ -38,12 +52,10 @@ public class Calculos extends Thread{
                 vectorResultante[i] += vector[j]*matrizP[j][i];
                
             }
-            //System.out.printf("%f", vector[i]);
         }
+        mostrar.mostrarPi(vectorResultante);
     }
     
-    //vamos a elevar la matriz a la n;
-
     public double[][] getMatrizp() {
         return matrizP;
     }
@@ -55,7 +67,7 @@ public class Calculos extends Thread{
     public double[] getVector() {
         return vector;
     }
-    
+        
     @Override
     public void run(){
         elevarMatriz();

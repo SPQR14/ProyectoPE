@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ejecutora;
 
 import modelo.*;
@@ -15,12 +11,14 @@ import algoritmo.*;
 public class Programa1 {
 
     /**
-     * @param args the command line arguments
+     * 
+     * @param lol 
      */
-    public static void main(String[] args){
+    public static void main(String[] lol){
         Entrada in = new Entrada();
-        in.start();
-        
+        in.entrada();
+        Calculos calc = new Calculos(in.getN(),in.getVectorPi(),in.getMatrizP());
+        calc.start();
     }
     
 }

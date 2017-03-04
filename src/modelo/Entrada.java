@@ -2,15 +2,37 @@
 package modelo;
 
 /**
- * @author spqr14
+ * @author Alberto I. Pico Lara
  */
 
-public class Entrada extends Thread {
+public class Entrada{
     
     private double [][] matrizP;
     private double [] vectorPi;
     private int m; //numero de estados, establece las dimesiones de la matriz y del vector
     private int n; //periodos a calcular
+
+    /**
+     * 
+     * @param matrizP
+     * @param vectorPi
+     * @param m
+     * @param n 
+     */
+    
+    public Entrada(double[][] matrizP, double[] vectorPi, int m, int n) {
+        this.matrizP = matrizP;
+        this.vectorPi = vectorPi;
+        this.m = m;
+        this.n = n;
+    }
+    
+    /**
+     * 
+     */
+
+    public Entrada() {
+    }
     
     private void leerM(){
         do{
@@ -48,7 +70,7 @@ public class Entrada extends Thread {
             }
         }
         if(validarVector(vectorPi)){
-            mostrarPi();
+            mostrarPi(vectorPi);
         }
     }
     
@@ -62,7 +84,7 @@ public class Entrada extends Thread {
         System.out.println("Ingrese la matriz de transición P.");
         for(int i = 0; i < matrizP.length; i++){
             for(int j = 0; j < matrizP[i].length;){
-                System.out.printf("Transición %d,%d. Disponible hasta hacer 1: %f ",i ,j, flag);
+                System.out.printf("Transición %d,%d. Disponible hasta hacer 1: %f: ",i ,j, flag);
                 matrizP[i][j] = Leer.leerDouble(matrizP[i][j]);
                 flag -= matrizP[i][j];
                 if(validarDouble(matrizP[i][j])){
@@ -75,7 +97,7 @@ public class Entrada extends Thread {
                 }
             }
         }
-        mostrarMatrizP();    
+        mostrarMatrizP(matrizP);    
     }
      
     private boolean validarVector(double [] x){
@@ -113,7 +135,7 @@ public class Entrada extends Thread {
         return crt;
     }
     
-    private void mostrarPi(){
+    public void mostrarPi(double [] vectorPi){
         int i = 0;
         System.out.println("\nVector Pi:");
         System.out.print("( ");
@@ -125,7 +147,7 @@ public class Entrada extends Thread {
         System.out.println("");
     }
     
-    private void mostrarMatrizP(){
+    public void mostrarMatrizP(double [][] matrizP){
         System.out.println("\nLa matriz P.");
         for (double[] matrizP1 : matrizP) {
             for (int j = 0; j < matrizP1.length; j++) {
@@ -146,13 +168,8 @@ public class Entrada extends Thread {
     public int getN() {
         return n;
     }
-
-    public static int getMAX_PRIORITY() {
-        return MAX_PRIORITY;
-    }
-       
-    @Override
-    public void run(){
+    
+    public void entrada(){
         leerM();
         leerN();
         leerVPi();

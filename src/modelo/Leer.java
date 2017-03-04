@@ -5,7 +5,7 @@ import java.io.*;
 
 /**
  *
- * @author SPQR14
+ * @author Alberto I. Pico Lara
  */
 public class Leer {
     
