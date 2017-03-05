@@ -27,29 +27,29 @@ public class Calculos extends Thread{
     public Calculos(int n, double [] vector, double [][] matriz ){
         this.vector = vector;
         this.matrizP = matriz;
-        this.matrizR = matriz;
+        this.matrizR = new double[matrizP.length][matrizP[0].length];
         this.vectorResultante = new double[vector.length];
-        this.n=n;
+        this.n = n;
     }
+       
+    /*
     
-    private void elevarMatriz(){
-        int x = 1;
-        while(x <= n){
-            for(int i = 0; i < matrizP.length; i++){
-                for(int j = 0; j < matrizP[i].length;j++){
-                    matrizP[i][j] += matrizR[i][j] * matrizR[j][i];
-                }
-            }
-            mostrar.mostrarMatrizP(matrizP);
-            x++;
-        }
-    }
+    
+    
+    
+    Aquí va el método para elevar la matriz a una potencia dada.
+    
+    
+    
+    
+    
+    */
     
     private void multiplicacionVectorPorMatriz(){
         for(int i = 0; i<vector.length; i++){
-            for(int j=0; j<matrizP[i].length; j++)
+            for(int j=0; j<matrizR[i].length; j++)
             {
-                vectorResultante[i] += vector[j]*matrizP[j][i];
+                vectorResultante[i] += vector[j]*matrizR[j][i];
                
             }
         }
@@ -70,7 +70,6 @@ public class Calculos extends Thread{
         
     @Override
     public void run(){
-        elevarMatriz();
         multiplicacionVectorPorMatriz();
     }
     
