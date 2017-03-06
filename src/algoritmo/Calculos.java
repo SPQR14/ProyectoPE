@@ -2,6 +2,7 @@
 package algoritmo;
 
 import modelo.Entrada;
+import java.math.*;
 
 /**
  * 
@@ -38,6 +39,7 @@ public class Calculos extends Thread{
             for(int j = 0; j < temp[i].length; j++){
                 for(int z = 0; z < temp[i].length; z++){
                     temp[i][j] += a[i][z] * b[z][j];
+                    amortiguarError(temp[i][j]);
                 }
             }
         }
@@ -61,7 +63,21 @@ public class Calculos extends Thread{
         }
         mostrar.mostrarPi(vectorResultante);
     }
+    
+    private BigDecimal amortiguarError(double cifra){
+        BigDecimal err = BigDecimal.ZERO;
+        BigDecimal cifraD = new BigDecimal(4).divide(new BigDecimal(8*cifra+1), 20, RoundingMode.HALF_UP);
+        return cifraD;
+    }
 
+    public double[][] getMatrizR() {
+        return matrizR;
+    }
+
+    public double[] getVectorResultante() {
+        return vectorResultante;
+    }
+    
     public static int getMAX_PRIORITY() {
         return MAX_PRIORITY;
     }

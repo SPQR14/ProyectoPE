@@ -20,6 +20,7 @@ public class Programa1 {
         in.entrada();
         Calculos calc = new Calculos(in.getN(),in.getVectorPi(),in.getMatrizP());
         calc.start();
+        Miscelanea.mostrarResultados(calc.getMatrizR(), calc.getVectorResultante());
     }
     
 }
