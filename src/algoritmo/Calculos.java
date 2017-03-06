@@ -25,51 +25,50 @@ public class Calculos extends Thread{
      */
     
     public Calculos(int n, double [] vector, double [][] matriz ){
-        this.vector = vector;
-        this.matrizP = matriz;
-        this.matrizR = new double[matrizP.length][matrizP[0].length];
-        this.vectorResultante = new double[vector.length];
         this.n = n;
+        this.vector = vector;
+        this.vectorResultante = new double[vector.length];
+        this.matrizP = matriz; //esta matriz conserva sus valores iniciales para las iteraciones.
+        this.matrizR = new double[matriz.length][matriz.length]; //esta va a ser la matriz elevada a la n.
     }
-       
-    /*
     
+    public double [][] multiplicarMatrices(double[][] a, double[][] b){
+        double [][] temp = new double[a.length][b.length]; 
+        for(int i = 0; i < temp.length; i++){
+            for(int j = 0; j < temp[i].length; j++){
+                for(int z = 0; z < temp[i].length; z++){
+                    temp[i][j] += a[i][z] * b[z][j];
+                }
+            }
+        }
+        mostrar.mostrarMatrizP(temp);
+        return temp;
+    }
     
-    
-    
-    Aquí va el método para elevar la matriz a una potencia dada.
-    
-    
-    
-    
-    
-    */
+    public double [][] potenciarMatriz(double [][] base){
+        double [][] paso = base;
+        for(int i = 1; i < n; i++){
+            paso = multiplicarMatrices(paso, base);
+        }
+        return paso;
+    }
     
     private void multiplicacionVectorPorMatriz(){
         for(int i = 0; i<vector.length; i++){
-            for(int j=0; j<matrizR[i].length; j++)
-            {
-                vectorResultante[i] += vector[j]*matrizR[j][i];
-               
+            for(int j=0; j < matrizP[i].length; j++){
+                vectorResultante[i] += vector[j] * matrizR[j][i];  
             }
         }
         mostrar.mostrarPi(vectorResultante);
     }
+
+    public static int getMAX_PRIORITY() {
+        return MAX_PRIORITY;
+    }
     
-    public double[][] getMatrizp() {
-        return matrizP;
-    }
-
-    public double[] getVectorResultante() {
-        return vectorResultante;
-    }
-
-    public double[] getVector() {
-        return vector;
-    }
-        
     @Override
     public void run(){
+        matrizR = potenciarMatriz(matrizP);
         multiplicacionVectorPorMatriz();
     }
     
