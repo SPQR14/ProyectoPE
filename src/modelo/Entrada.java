@@ -60,8 +60,8 @@ public class Entrada{
         for(i = 0; i < vectorPi.length;){
             System.out.printf("Estado %d Disponible hasta hacer 1: %f : ", i, flag);
             vectorPi[i] = Leer.leerDouble(vectorPi[i]);
-            flag -= vectorPi[i];
             if(validarDouble(vectorPi[i])){
+                flag -= vectorPi[i];
                 if(flag == 0){
                     flag = 1;
                     break;
@@ -86,8 +86,8 @@ public class Entrada{
             for(int j = 0; j < matrizP[i].length;){
                 System.out.printf("Transición %d,%d. Disponible hasta hacer 1: %f: ",i ,j, flag);
                 matrizP[i][j] = Leer.leerDouble(matrizP[i][j]);
-                flag -= matrizP[i][j];
                 if(validarDouble(matrizP[i][j])){
+                    flag -= matrizP[i][j];
                     if(flag == 0){
                         System.out.println("Siguiente renglón.");
                         flag = 1;
